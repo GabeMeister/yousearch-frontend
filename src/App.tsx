@@ -13,10 +13,13 @@ async function getVideos(): Promise<Array<Video>> {
 }
 
 const App: Component = () => {
+  const [loading, setLoading] = createSignal(false);
   const [data, { refetch }] = createResource(getVideos);
   const [url, setUrl] = createSignal("");
 
   async function addVideo() {
+    setLoading(true);
+
     await Fetcher.post(
       "/video",
       {},
@@ -25,24 +28,29 @@ const App: Component = () => {
       }
     );
 
-    console.log("SETTING URL");
+    setLoading(false);
+
     setUrl("");
     refetch();
   }
 
-  console.log(url());
-
   return (
     <div class="p-6">
       <p class="text-5xl">Display all the videos!</p>
+      {/* <p class="">{JSON.stringify(data.loading)}</p> */}
       <Heading3 className="mt-3">Add a url:</Heading3>
       <TextInput
         className="w-[400px]"
         placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
         onInput={(e) => setUrl(e.target.value)}
-        value={url}
+        value={url()}
+        disabled={loading() || data.loading}
       />
-      <Button onClick={addVideo} className="ml-3">
+      <Button
+        onClick={addVideo}
+        className="ml-3"
+        disabled={loading() || data.loading}
+      >
         Add
       </Button>
       <Heading3 className="mt-3">All Videos:</Heading3>
