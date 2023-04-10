@@ -1,82 +1,62 @@
 import { Component, For, createResource, createSignal } from "solid-js";
 import Fetcher from "./Fetcher";
+import { Video } from "./ApiTypes";
+import Button from "./components/Button";
+import TextInput from "./components/TextInput";
+import Heading3 from "./components/Heading3";
 
-async function getNames(): Promise<Array<User>> {
-  const data = await Fetcher.get("/user/all");
-  const allUsers: Array<User> = data;
+async function getVideos(): Promise<Array<Video>> {
+  const data = await Fetcher.get("/video/all");
+  const allUsers: Array<Video> = data;
 
   return allUsers;
 }
 
 const App: Component = () => {
-  const [data, { refetch }] = createResource(getNames);
-  const [name, setName] = createSignal("");
-  const [updatedName, setUpdatedName] = createSignal("");
+  const [data, { refetch }] = createResource(getVideos);
+  const [url, setUrl] = createSignal("");
 
-  async function addUser() {
+  async function addVideo() {
     await Fetcher.post(
-      "/user",
+      "/video",
       {},
       {
-        name: name(),
-        password: "blahblah",
+        url: url(),
       }
     );
 
-    setName("");
+    console.log("SETTING URL");
+    setUrl("");
     refetch();
   }
 
-  async function onDeleteUser(id: number) {
-    await Fetcher.post(`/user/${id}/delete`);
-    refetch();
-  }
-
-  async function onUpdateUser(id: number) {
-    await Fetcher.post(
-      `/user/${id}/update`,
-      {},
-      {
-        name: updatedName(),
-      }
-    );
-
-    setUpdatedName("");
-    refetch();
-  }
+  console.log(url());
 
   return (
-    <div>
-      <p class="text-5xl">Display all the names!</p>
-      <h3>Loading: {JSON.stringify(data.loading)}</h3>
-      <h3>Add a name:</h3>
-      <input
-        type="text"
-        value={name()}
-        onInput={(e) => setName(e.target.value)}
+    <div class="p-6">
+      <p class="text-5xl">Display all the videos!</p>
+      <Heading3 className="mt-3">Add a url:</Heading3>
+      <TextInput
+        className="w-[400px]"
+        placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
+        onInput={(e) => setUrl(e.target.value)}
+        value={url}
       />
-      <p>{name()}</p>
-      <button onClick={addUser}>Add</button>
-      <h3>All Names:</h3>
-      <ul>
+      <Button onClick={addVideo} className="ml-3">
+        Add
+      </Button>
+      <Heading3 className="mt-3">All Videos:</Heading3>
+      <ul class="mt-3">
         <For each={data()}>
-          {(user) => (
+          {(v) => (
             <>
               <li>
-                <span>{user.name}</span>{" "}
-                <span onClick={() => onDeleteUser(user.id)}>X</span>
-                <button onClick={() => onUpdateUser(user.id)}>Update</button>
+                <span>{v.title}</span>
               </li>
             </>
           )}
         </For>
       </ul>
-      <h3>Update Name:</h3>
-      <input
-        type="text"
-        value={updatedName()}
-        onInput={(e) => setUpdatedName(e.target.value)}
-      />
     </div>
   );
 };

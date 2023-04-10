@@ -1,4 +1,5 @@
-type User = {
+export type Video = {
   id: number;
-  name: string;
+  title: string;
+  url: string;
 };
