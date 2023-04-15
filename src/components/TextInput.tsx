@@ -17,7 +17,7 @@ export default function TextInput(props: TextInputProps) {
     <input
       type="text"
       id={props.id}
-      class={`border-b-2 px-2 py-1 border-blue-300 focus:border-blue-400 transition-colors duration-500 outline-0 border-md ${props.className}`}
+      class={`border-b-2 px-2 py-1 bg-transparent border-blue-300 focus:border-blue-400 transition-colors duration-500 outline-0 border-md ${props.className}`}
       placeholder={props.placeholder}
       onInput={props.onInput}
       value={props.value}
