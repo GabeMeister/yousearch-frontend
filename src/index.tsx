@@ -3,7 +3,7 @@ import { render } from "solid-js/web";
 
 import "./index.css";
 import App from "./App";
-import * as te from "tw-elements";
+import "tw-elements";
 
 const root = document.getElementById("root");
 

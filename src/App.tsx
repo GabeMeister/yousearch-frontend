@@ -1,10 +1,12 @@
-import { Component, For, createResource, createSignal } from "solid-js";
+import { HopeProvider } from "@hope-ui/solid";
+import { Component, createResource, createSignal } from "solid-js";
 import Fetcher from "./Fetcher";
 import { Video } from "./ApiTypes";
 import Button from "./components/Button";
 import TextInput from "./components/TextInput";
-import Heading3 from "./components/Heading3";
-import Card from "./components/Card";
+import Heading4 from "./components/Heading4";
+import { Tabs, TabList, Tab, TabPanel } from "@hope-ui/solid";
+import SearchTab from "./sections/SearchTab";
 
 async function getVideos(): Promise<Array<Video>> {
   const data = await Fetcher.get("/video/all");
@@ -36,52 +38,42 @@ const App: Component = () => {
   }
 
   return (
-    <div class="p-6 bg-gray-50 min-h-screen">
-      <p class="text-5xl">
-        <span class="font-bold">QuoteUup</span>
-      </p>
-      {/* <p>{JSON.stringify(allVideos.loading)}</p> */}
-      <Heading3 className="mt-6">Add a YouTube video:</Heading3>
-      <TextInput
-        className="w-[400px]"
-        placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
-        onInput={(e) => setUrl(e.target.value)}
-        value={url()}
-        disabled={loading() || allVideos.loading}
-      />
-      <Button
-        onClick={addVideo}
-        className="ml-3"
-        loading={loading() || allVideos.loading}
-      >
-        Add
-      </Button>
-      <Heading3 className="mt-6">All Videos:</Heading3>
-      <div class="mt-3 flex flex-wrap">
-        <For each={allVideos()}>
-          {(v) => (
-            <div class="mt-3 ml-3 w-[400px]">
-              <a target="_blank" href={v.url}>
-                <Card className="p-8 rounded-md hover:bg-gray-100 transition-colors duration-500">
-                  <div class="flex">
-                    <img src={v.thumbnail} alt="thumbnail" />
-                    <div class="ml-3">
-                      <div class="text-lg font-bold">{v.title}</div>
-                      <div class="text-md">{v.channel_id}</div>
-                    </div>
-                  </div>
-                  <div class="mt-3">
-                    <span class="text-gray-600 italic">
-                      &quot;{v.captions + "..."}&quot;
-                    </span>
-                  </div>
-                </Card>
-              </a>
-            </div>
-          )}
-        </For>
+    <HopeProvider>
+      <div class="p-6 bg-gray-50 min-h-screen">
+        <div class="flex items-center">
+          <img src="/src/assets/paper.svg" />
+          <h1 class="text-5xl font-bold inline-block ml-2">QuoteUup</h1>
+        </div>
+        <div class="mt-3">
+          <Tabs>
+            <TabList>
+              <Tab>Add a Video</Tab>
+              <Tab>Search Videos</Tab>
+            </TabList>
+            <TabPanel>
+              <Heading4 className="">Paste the URL:</Heading4>
+              <TextInput
+                className="w-[400px]"
+                placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
+                onInput={(e) => setUrl(e.target.value)}
+                value={url()}
+                disabled={loading() || allVideos.loading}
+              />
+              <Button
+                onClick={addVideo}
+                className="ml-3"
+                loading={loading() || allVideos.loading}
+              >
+                Add
+              </Button>
+            </TabPanel>
+            <TabPanel>
+              <SearchTab />
+            </TabPanel>
+          </Tabs>
+        </div>
       </div>
-    </div>
+    </HopeProvider>
   );
 };
 

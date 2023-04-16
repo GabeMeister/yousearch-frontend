@@ -5,8 +5,8 @@ export function getQueryStr(query: any = {}) {
 }
 
 const Fetcher = {
-  get: async function (endpoint: string): Promise<any> {
-    const r = await fetch(BACKEND_API + endpoint, {
+  get: async function (endpoint: string, query: any = {}): Promise<any> {
+    const r = await fetch(BACKEND_API + endpoint + "?" + getQueryStr(query), {
       method: "GET",
     });
 

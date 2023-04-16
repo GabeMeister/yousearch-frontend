@@ -18,7 +18,11 @@
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
+    "@hope-ui/solid": "^0.6.7",
+    "@stitches/core": "^1.2.8",
+    "humanize-duration": "^3.28.0",
     "solid-js": "^1.6.10",
+    "solid-transition-group": "^0.2.2",
     "tw-elements": "^1.0.0-beta1"
   }
 }
