@@ -41,7 +41,7 @@ const App: Component = () => {
     <HopeProvider>
       <div class="p-6 bg-gray-50 min-h-screen">
         <div class="flex items-center">
-          <img src="/src/assets/paper.svg" />
+          <img src="/paper.svg" />
           <h1 class="text-5xl font-bold inline-block ml-2">QuoteUup</h1>
         </div>
         <div class="mt-3">
