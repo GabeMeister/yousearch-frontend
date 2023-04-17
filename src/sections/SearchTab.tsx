@@ -55,22 +55,25 @@ export default function SearchTab(props: SearchTabProps) {
 
   return (
     <div>
-      <TextInput
-        className="w-[300px]"
-        placeholder="Ceviche"
-        onInput={(e) => {
-          setSearchTerm(e.target.value);
-          onSearch(e.target.value);
-        }}
-        value={searchTerm()}
-      />
+      <div class="flex items-start md:items-center flex-col md:flex-row">
+        <span>Search anything:</span>
+        <TextInput
+          className="w-full md:w-[300px] ml-0 md:ml-3"
+          placeholder="Ceviche"
+          onInput={(e) => {
+            setSearchTerm(e.target.value);
+            onSearch(e.target.value);
+          }}
+          value={searchTerm()}
+        />
+      </div>
       <div class="mt-3 flex flex-wrap">
         <For each={captionData()}>
           {(c) => (
             <div class="mt-3 ml-3 w-[400px]">
               <a target="_blank" href={c.url}>
                 <Card className="p-8 rounded-md hover:bg-gray-200 transition-colors duration-500">
-                  <div class="flex">
+                  <div class="flex items-start">
                     <img src={c.thumbnail} alt="thumbnail" />
                     <div class="ml-3">
                       <div class="text-lg font-bold">{c.title}</div>

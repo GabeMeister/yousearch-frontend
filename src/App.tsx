@@ -42,7 +42,9 @@ const App: Component = () => {
       <div class="p-6 bg-gray-50 min-h-screen">
         <div class="flex items-center">
           <img src="/paper.svg" />
-          <h1 class="text-5xl font-bold inline-block ml-2">QuoteUup</h1>
+          <h1 class="text-4xl md:text-5xl font-bold inline-block ml-2">
+            Quote Uup
+          </h1>
         </div>
         <div class="mt-3">
           <Tabs>
@@ -51,21 +53,23 @@ const App: Component = () => {
               <Tab>Search Videos</Tab>
             </TabList>
             <TabPanel>
-              <Heading4 className="">Paste the URL:</Heading4>
-              <TextInput
-                className="w-[400px]"
-                placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
-                onInput={(e) => setUrl(e.target.value)}
-                value={url()}
-                disabled={loading() || allVideos.loading}
-              />
-              <Button
-                onClick={addVideo}
-                className="ml-3"
-                loading={loading() || allVideos.loading}
-              >
-                Add
-              </Button>
+              <span>Paste the URL:</span>
+              <div class="flex flex-col md:flex-row">
+                <TextInput
+                  className="w-full md:w-[400px]"
+                  placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
+                  onInput={(e) => setUrl(e.target.value)}
+                  value={url()}
+                  disabled={loading() || allVideos.loading}
+                />
+                <Button
+                  onClick={addVideo}
+                  className="ml-0 md:ml-3 mt-2 md:mt-0 w-20"
+                  loading={loading() || allVideos.loading}
+                >
+                  Add
+                </Button>
+              </div>
             </TabPanel>
             <TabPanel>
               <SearchTab />
