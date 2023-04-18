@@ -7,6 +7,7 @@ import TextInput from "./components/TextInput";
 import Heading4 from "./components/Heading4";
 import { Tabs, TabList, Tab, TabPanel } from "@hope-ui/solid";
 import SearchTab from "./sections/SearchTab";
+import Form from "./components/Form";
 
 async function getVideos(): Promise<Array<Video>> {
   const data = await Fetcher.get("/video/all");
@@ -54,22 +55,23 @@ const App: Component = () => {
             </TabList>
             <TabPanel>
               <span>Paste the URL:</span>
-              <div class="flex flex-col md:flex-row">
-                <TextInput
-                  className="w-full md:w-[400px]"
-                  placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
-                  onInput={(e) => setUrl(e.target.value)}
-                  value={url()}
-                  disabled={loading() || allVideos.loading}
-                />
-                <Button
-                  onClick={addVideo}
-                  className="ml-0 md:ml-3 mt-2 md:mt-0 w-20"
-                  loading={loading() || allVideos.loading}
-                >
-                  Add
-                </Button>
-              </div>
+              <Form onSubmit={addVideo}>
+                <div class="flex flex-col md:flex-row">
+                  <TextInput
+                    className="w-full md:w-[400px]"
+                    placeholder="https://www.youtube.com/watch?v=2C_F92QmT88"
+                    onInput={(e) => setUrl(e.target.value)}
+                    value={url()}
+                    disabled={loading() || allVideos.loading}
+                  />
+                  <Button
+                    className="ml-0 md:ml-3 mt-2 md:mt-0 w-20"
+                    loading={loading() || allVideos.loading}
+                  >
+                    Add
+                  </Button>
+                </div>
+              </Form>
             </TabPanel>
             <TabPanel>
               <SearchTab />

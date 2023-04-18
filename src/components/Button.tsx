@@ -8,7 +8,7 @@ const DISABLED_CLASSES = `cursor-not-allowed inline-block rounded bg-primary-acc
 type ButtonProps = {
   children: JSX.Element;
   className?: string;
-  onClick: () => void;
+  onClick?: () => void;
   loading?: boolean;
   disabled?: boolean;
 };

@@ -1,4 +1,3 @@
-import { Accessor } from "solid-js";
 import { JSX } from "solid-js/jsx-runtime";
 
 type TextInputProps = {
