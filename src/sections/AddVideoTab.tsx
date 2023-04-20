@@ -1,5 +1,5 @@
 import Button from "../components/Button";
-import { Component, createResource, createSignal } from "solid-js";
+import { createSignal } from "solid-js";
 import TextInput from "../components/TextInput";
 import Form from "../components/Form";
 import Fetcher from "../Fetcher";
@@ -39,6 +39,7 @@ export default function AddVideoTab(props: AddVideoTabProps) {
             disabled={loading()}
           />
           <Button
+            type="submit"
             className="ml-0 md:ml-3 mt-2 md:mt-0 w-20"
             loading={loading()}
           >

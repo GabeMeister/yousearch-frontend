@@ -11,6 +11,7 @@ type ButtonProps = {
   onClick?: () => void;
   loading?: boolean;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
 };
 
 export default function Button(props: ButtonProps) {
@@ -37,7 +38,7 @@ export default function Button(props: ButtonProps) {
 
   return (
     <button
-      type="button"
+      type={props.type ?? "button"}
       class={`${buttonCss()} ${cursorCss()} ${className()}`}
       onClick={props.onClick}
       disabled={props.loading || props.disabled}

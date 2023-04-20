@@ -5,16 +5,24 @@ export type Video = {
   title: string;
   url: string;
   captions: string;
+  upload_datetime: string;
   views: string;
   length: string;
   thumbnail: string;
   youtube_id: string;
 };
 
+export type CaptionSearchResults = {
+  success: boolean;
+  videos: Array<VideoCaptionsResult>;
+};
+
+export type VideoCaptionsResult = {
+  video: Video;
+  captions: Array<CaptionTextSnippet>;
+};
+
 export type CaptionTextSnippet = {
-  title: string;
-  thumbnail: string;
-  channel_title: string;
   url: string;
   caption_text: string;
   start: number;
